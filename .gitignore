@@ -1,0 +1,19 @@
+# Dataset (downloaded by the script, do not commit)
+data/
+*.zip
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Model checkpoints
+*.pt
+*.pth
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
