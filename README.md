@@ -1,5 +1,7 @@
 # Human Activity Recognition with Deep Learning (UCI HAR)
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Jennie3306/uci-har-deep-learning/blob/main/notebooks/UCI-HAR_DL.ipynb)
+
 Can deep learning models trained on **raw smartphone sensor signals** recognise daily activities better than classical models trained on **561 hand-crafted features**, when tested on **people they have never seen**?
 
 This repository compares a 1D-CNN, a bidirectional LSTM and a CNN-LSTM in **PyTorch** against a scikit-learn baseline, using a leakage-free, subject-wise evaluation. Target use case: daily-activity monitoring for elderly people.
@@ -10,12 +12,20 @@ Subject-wise 5-fold cross-validation (GroupKFold). Primary metric: macro-F1, mea
 
 | Model | Input | Macro-F1 | Accuracy | Params |
 |---|---|---|---|---|
-| Best scikit-learn model: [name] | 561 features | [ ] | [ ] | – |
-| 1D-CNN | raw 9 × 128 | [ ] | [ ] | [ ] |
-| BiLSTM | raw 9 × 128 | [ ] | [ ] | [ ] |
-| CNN-LSTM | raw 9 × 128 | [ ] | [ ] | [ ] |
+| **LinearSVC** (scikit-learn) | 561 features | **0.960 ± 0.017** | **0.960** | – |
+| Logistic Regression (scikit-learn) | 561 features | 0.957 ± 0.016 | 0.958 | – |
+| Random Forest (scikit-learn) | 561 features | 0.936 ± 0.027 | 0.939 | – |
+| 1D-CNN | raw 9 × 128 | 0.930 ± 0.017 | 0.927 | 116,550 |
+| BiLSTM | raw 9 × 128 | 0.919 ± 0.031 | 0.917 | 539,142 |
+| **CNN-LSTM** | raw 9 × 128 | **0.935 ± 0.016** | **0.933** | **57,414** |
 
-Main finding: [one sentence, e.g. which model wins, by how much, and which classes are still confused].
+Main findings:
+
+- **Hand-crafted features still win on this dataset.** LinearSVC on the 561 features beats the best deep model (CNN-LSTM) by about 0.025 macro-F1, and it is better on **all 5 folds** (same test subjects for every model), so the gap is consistent rather than noise.
+- **Deep models get close without any feature engineering.** All three reach 0.92–0.94 macro-F1 from raw signals. CNN-LSTM has the best mean with the fewest parameters (57k), but the differences between the three deep models are within one standard deviation, so none is a clear winner.
+- **The hardest classes are SITTING ↔ STANDING** (per-class F1 0.81–0.86 for the deep models vs ≥ 0.94 for every other activity): both are static postures that differ mainly in phone orientation.
+
+Full run with outputs: [`notebooks/UCI-HAR_DL.ipynb`](notebooks/UCI-HAR_DL.ipynb) (Colab, T4 GPU). Per-fold scores and confusion matrices: [`results/`](results/).
 
 ## Dataset
 
@@ -66,6 +76,7 @@ Outputs in `results/`:
 
 ```
 ├── har_pytorch.py      # data loading, models, training, subject-wise CV
+├── notebooks/          # Colab notebook of the full run, with outputs
 ├── requirements.txt
 ├── results/            # CSV / JSON outputs committed after each run
 └── README.md

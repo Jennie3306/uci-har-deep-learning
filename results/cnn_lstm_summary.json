@@ -1,0 +1,82 @@
+{
+  "macro_f1_mean": 0.9351,
+  "macro_f1_std": 0.015982333997260834,
+  "per_class_f1": {
+    "WALKING": 0.9749,
+    "WALKING_UPSTAIRS": 0.9679,
+    "WALKING_DOWNSTAIRS": 0.9821,
+    "SITTING": 0.8382,
+    "STANDING": 0.8577,
+    "LAYING": 0.9944
+  },
+  "confusion_matrix": [
+    [
+      1650,
+      55,
+      17,
+      0,
+      0,
+      0
+    ],
+    [
+      10,
+      1507,
+      27,
+      0,
+      0,
+      0
+    ],
+    [
+      3,
+      2,
+      1399,
+      2,
+      0,
+      0
+    ],
+    [
+      0,
+      3,
+      0,
+      1474,
+      281,
+      19
+    ],
+    [
+      0,
+      0,
+      0,
+      264,
+      1642,
+      0
+    ],
+    [
+      0,
+      3,
+      0,
+      0,
+      0,
+      1941
+    ]
+  ],
+  "config": {
+    "model": "cnn_lstm",
+    "epochs": 30,
+    "batch_size": 64,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 6,
+    "n_splits": 5,
+    "val_frac": 0.2,
+    "seed": 42
+  },
+  "n_params": 57414,
+  "labels": [
+    "WALKING",
+    "WALKING_UPSTAIRS",
+    "WALKING_DOWNSTAIRS",
+    "SITTING",
+    "STANDING",
+    "LAYING"
+  ]
+}
